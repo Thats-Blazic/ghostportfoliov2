@@ -242,6 +242,13 @@ const studentMap: { [key: string]: string } = {
   'GF24-KURS-DD5J8': 'Student 30'
 }
 
+// First, define the type for your categories
+type Categories = {
+  '1': string;
+  '2': string;
+  '3': string;
+}
+
 // Prevodi
 const translations = {
   sr: {
@@ -600,7 +607,9 @@ export default function CoursePage() {
         <div className="space-y-12">
           {courseData.map((category) => (
             <div key={category.id} className="space-y-6">
-              <h2 className="text-2xl font-bold text-white">{t.categories[category.id]}</h2>
+              <h2 className="text-2xl font-bold text-white">
+                {t.categories[category.id as keyof Categories]}
+              </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {category.videos.map((video) => (
