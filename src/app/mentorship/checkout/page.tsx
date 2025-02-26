@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
@@ -84,7 +84,7 @@ const translations = {
   }
 }
 
-export default function CheckoutPage() {
+function CheckoutPage() {
   const searchParams = useSearchParams()
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'bank' | 'crypto' | 'paypal'>('card')
   const [selectedCrypto, setSelectedCrypto] = useState<keyof typeof cryptoAddresses | null>(null)
@@ -548,5 +548,14 @@ export default function CheckoutPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+// Create a wrapper component
+export default function CheckoutPageWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CheckoutPage />
+    </Suspense>
   )
 } 

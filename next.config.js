@@ -13,6 +13,8 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true, // Privremeno ignorišemo ESLint tokom builda
   },
+  optimizeFonts: false,
+  domains: ['fonts.googleapis.com', 'fonts.gstatic.com'],
 }
 
 module.exports = nextConfig 
