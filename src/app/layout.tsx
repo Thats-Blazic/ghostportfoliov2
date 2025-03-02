@@ -22,13 +22,13 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Ghost Force Studio | Premium Design Services',
+  title: 'Ghost Force Studio',
   description: 'Professional design services for your brand. We create thumbnails, banners, logos, and brand identities that stand out.',
   keywords: 'design, thumbnails, banners, gaming, music, branding, logo design',
   authors: [{ name: 'Ghost Force Studio' }],
   robots: 'index, follow',
   openGraph: {
-    title: 'Ghost Force Studio | Premium Design Services',
+    title: 'Ghost Force Studio',
     description: 'Professional design services for your Brand',
     url: 'https://ghostforcestudio.com',
     siteName: 'Ghost Force Studio',
