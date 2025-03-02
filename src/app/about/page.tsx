@@ -149,7 +149,7 @@ const thumbnailExamples = [
   {
     id: 2,
     image: "/projects/thumb/aaaaaa.jpg",
-    title: "Sad je stvarno dosta njake",
+    title: "New Protein Review",
     author: "Vanja",
     views: "50K views",
     time: "1 week ago"
@@ -405,7 +405,7 @@ const products = [
     thumbnail: "/projects/thumb/a.jpg"
   },
   {
-    title: "Sad je stvarno dosta njake",
+    title: "New Protein Review",
     link: "#",
     thumbnail: "/projects/thumb/aaaaaa.jpg"
   },
@@ -823,7 +823,7 @@ export default function AboutPage() {
 
           <div className="relative" ref={timelineRef}>
             {/* Background Line with Gradient */}
-            <div className="absolute left-[28px] lg:left-1/2 h-full w-[3px] bg-gradient-to-b from-violet-600/0 via-violet-600/50 to-violet-600/0 -translate-x-1/2 blur-sm" />
+            <div className="absolute left-[28px] lg:left-1/2 h-full w-[3px] bg-gradient-to-b from-violet-600/0 via-violet-600/50 to-violet-600/0 -translate-x-1/2 blur-sm hidden md:block" />
             <div className="absolute left-[28px] lg:left-1/2 h-full w-[1px] bg-violet-600/20 -translate-x-1/2" />
 
             {/* Animated Progress Line */}
@@ -840,17 +840,24 @@ export default function AboutPage() {
               <motion.div
                 key={step.stage}
                 data-step={index}
-                className="timeline-step relative mb-32 last:mb-0 group"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                className="timeline-step relative mb-16 md:mb-24 last:mb-0 group"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ 
+                  opacity: 1, 
+                  y: 0,
+                  transition: {
+                    duration: 0.3,
+                    delay: Math.min(0.05, index * 0.02) // Reduced delay for mobile devices
+                  }
+                }}
+                viewport={{ once: true, margin: "30px" }}
               >
-                {/* Enhanced Circle on Timeline */}
-                <motion.div
-                  className={`absolute left-[28px] lg:left-1/2 -translate-x-1/2 w-[20px] h-[20px] rounded-full transition-all duration-500
+                {/* Enhanced Circle on Timeline - simplified for mobile */}
+                <div
+                  className={`absolute left-[28px] lg:left-1/2 -translate-x-1/2 w-[14px] h-[14px] md:w-[20px] md:h-[20px] rounded-full transition-all duration-200
                     ${activeStep === index 
-                      ? 'scale-125 shadow-lg shadow-violet-600/50'
-                      : 'group-hover:scale-110'
+                      ? 'scale-110 md:scale-125 shadow-md md:shadow-lg shadow-violet-600/30 md:shadow-violet-600/50'
+                      : 'group-hover:scale-105 md:group-hover:scale-110'
                     }`}
                   style={{ 
                     zIndex: 2,
@@ -860,16 +867,16 @@ export default function AboutPage() {
                     border: '2px solid rgba(124, 58, 237, 0.5)'
                   }}
                 >
-                  <div className={`absolute inset-0 rounded-full bg-violet-600/50 blur-md transition-opacity duration-500
+                  <div className={`absolute inset-0 rounded-full bg-violet-600/50 blur-md transition-opacity duration-300 hidden md:block
                     ${activeStep === index ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'}`} />
-                </motion.div>
+                </div>
 
-                <div className={`grid lg:grid-cols-2 gap-8 ${
+                <div className={`grid lg:grid-cols-2 gap-4 md:gap-8 ${
                   index % 2 === 0 ? 'lg:pr-24' : 'lg:pl-24'
                 }`}>
                   <div className={index % 2 === 0 ? 'lg:col-start-1' : 'lg:col-start-2'}>
-                    <motion.div
-                      className="ml-16 lg:ml-0 p-8 rounded-2xl backdrop-blur-sm transition-all duration-500"
+                    <div
+                      className="ml-16 lg:ml-0 p-4 md:p-8 rounded-2xl transition-all duration-300"
                       style={{
                         background: activeStep === index 
                           ? 'rgba(124, 58, 237, 0.1)'
@@ -878,106 +885,30 @@ export default function AboutPage() {
                           ? 'rgba(124, 58, 237, 0.2)'
                           : 'rgba(124, 58, 237, 0.1)'}`
                       }}
-                      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                      whileInView={{ 
-                        opacity: 1, 
-                        x: 0,
-                        transition: {
-                          duration: 0.8,
-                          ease: [0.04, 0.62, 0.23, 0.98]
-                        }
-                      }}
-                      viewport={{ once: true }}
                     >
-                      <motion.span 
-                        className={`inline-block px-3 py-1 rounded-full text-sm font-medium mb-4
+                      <span 
+                        className={`inline-block px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium mb-2 md:mb-4
                           ${activeStep === index 
                             ? 'bg-violet-600/20 text-violet-400' 
                             : 'bg-violet-600/10 text-violet-400/70'}`}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ 
-                          opacity: 1, 
-                          scale: 1,
-                          transition: {
-                            delay: 0.2,
-                            duration: 0.5
-                          }
-                        }}
-                        viewport={{ once: true }}
                       >
                         {step.stage}
-                      </motion.span>
-                      
-                      <motion.div 
-                        className="flex items-center gap-3 mb-4"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ 
-                          opacity: 1, 
-                          y: 0,
-                          transition: {
-                            delay: 0.3,
-                            duration: 0.5
-                          }
-                        }}
-                        viewport={{ once: true }}
-                      >
-                        <h3 className={`text-3xl font-bold transition-colors duration-500
-                          ${activeStep === index ? 'text-white' : 'text-white/50'}`}
-                      >
-                        {step.title}
-                      </h3>
-                        <span className={`text-2xl font-semibold transition-colors duration-500
-                          ${activeStep === index ? 'text-violet-400' : 'text-violet-400/50'}`}
-                      >
-                        {step.year}
                       </span>
-                      </motion.div>
-
-                      <motion.p 
-                        className={`text-lg leading-relaxed transition-colors duration-500
-                          ${activeStep === index ? 'text-white/90' : 'text-white/40'}`}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ 
-                          opacity: 1, 
-                          y: 0,
-                          transition: {
-                            delay: 0.4,
-                            duration: 0.5
-                          }
-                        }}
-                        viewport={{ once: true }}
+                      
+                      <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-4">
+                        <h3 className={`text-lg md:text-3xl font-bold transition-colors duration-300
+                          ${activeStep === index ? 'text-white' : 'text-white/50'}`}
+                        >
+                          {step.title}
+                        </h3>
+                      </div>
+                      
+                      <p className={`text-sm md:text-base transition-colors duration-300
+                        ${activeStep === index ? 'text-white/80' : 'text-white/40'}`}
                       >
                         {step.description}
-                      </motion.p>
-
-                      {/* Progress Indicator */}
-                      <motion.div 
-                        className="mt-6 h-1 bg-violet-600/10 rounded-full overflow-hidden"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ 
-                          opacity: 1,
-                          transition: {
-                            delay: 0.5,
-                            duration: 0.5
-                          }
-                        }}
-                        viewport={{ once: true }}
-                      >
-                        <motion.div
-                          className="h-full bg-gradient-to-r from-violet-600 to-violet-400"
-                          initial={{ width: "0%" }}
-                          whileInView={{ 
-                            width: "100%",
-                            transition: {
-                              delay: 0.6,
-                              duration: 1,
-                              ease: "easeOut"
-                            }
-                          }}
-                          viewport={{ once: true }}
-                        />
-                      </motion.div>
-                    </motion.div>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -1061,6 +992,8 @@ export default function AboutPage() {
                       alt={example.title}
                       fill
                       className="object-cover transform transition-transform duration-500 group-hover:scale-105"
+                      unoptimized={true}
+                      loader={({ src }) => src}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="absolute bottom-3 right-3 px-2.5 py-1.5 bg-violet-600/90 backdrop-blur-sm rounded-lg text-xs font-medium flex items-center gap-1.5">
@@ -1105,6 +1038,8 @@ export default function AboutPage() {
                       alt={example.title}
                       fill
                       className="object-cover transform transition-transform duration-500 group-hover:scale-105"
+                      unoptimized={true}
+                      loader={({ src }) => src}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="absolute bottom-3 right-3 px-2.5 py-1.5 bg-violet-600/90 backdrop-blur-sm rounded-lg text-xs font-medium flex items-center gap-1.5">
@@ -1572,6 +1507,8 @@ const ProductCard = ({
           className="object-cover absolute h-full w-full inset-0 rounded-lg sm:rounded-xl"
           alt={product.title}
           priority
+          unoptimized={true}
+          loader={({ src }) => src}
         />
       </Link>
       <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none rounded-lg sm:rounded-xl" />

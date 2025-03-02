@@ -3,7 +3,7 @@
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
 import Image from 'next/image'
 import Navbar from '@/components/Navbar'
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import ImageModal from '@/components/ImageModal'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import emailjs from '@emailjs/browser'
@@ -12,101 +12,6 @@ import ContactForm from '@/components/ContactForm'
 import CountUp from '@/components/CountUp'
 import { HeroHighlight, Highlight } from "@/components/HeroHighlight"
 import Link from 'next/link'
-
-const testImages = [
-  {
-    src: "https://i.ibb.co/gbSFFbDM/ivan-marketing-tajne.jpg",
-    alt: "",
-    category: "Thumbnails"
-  },
-  {
-    src: "https://i.ibb.co/Px28WgQ/thumbnail01.jpg",
-    alt: "",
-    category: "Thumbnails"
-  },
-  {
-    src: "https://i.ibb.co/1vRJQtp/prvi-thumbnail.jpg",
-    alt: "",
-    category: "Thumbnails"
-  },
-  {
-    src: "https://i.ibb.co/whBHX785/fakulteti.jpg",
-    alt: "",
-    category: "Thumbnails"
-  },
-  {
-    src: "https://i.ibb.co/bF2m0Nv/popij-ili-odgovori.jpg",
-    alt: "",
-    category: "Thumbnails"
-  },
-  {
-    src: "https://i.ibb.co/PvGtbFY1/Artboard-1.jpg",
-    alt: "",
-    category: "Thumbnails"
-  },
-  {
-    src: "https://i.ibb.co/fdx0brJj/REACTION.jpg",
-    alt: "",
-    category: "Thumbnails"
-  },
-  {
-    src: "https://i.ibb.co/XxCDghb2/unlock.jpg",
-    alt: "",
-    category: "Thumbnails"
-  },
-  {
-    src: "https://i.ibb.co/ytqdRRC/plavi-evergreen.jpg",
-    alt: "",
-    category: "Thumbnails"
-  },
-  {
-    src: "https://i.ibb.co/V09TQf6Z/3-vjezbe.jpg",
-    alt: "",
-    category: "Thumbnails"
-  },
-  {
-    src: "https://i.ibb.co/gt4VdRm/0b1d7e215597007-676f408d53882.jpg",
-    alt: "",
-    category: "Thumbnails"
-  },
-  {
-    src: "https://i.ibb.co/MRg446x/b6626d215597007-676f408e42ec5.jpg",
-    alt: "",
-    category: "Thumbnails"
-  },
-  {
-    src: "https://i.ibb.co/3y6mh6fH/wallpaper.jpg",
-    alt: "",
-    category: "Banners"
-  },
-  {
-    src: "https://i.ibb.co/XrnLM6Nv/banner-2.jpg",
-    alt: "",
-    category: "Banners"
-  },
-  {
-    src: "https://i.ibb.co/PtPRG7c/laivda.jpg",
-    alt: "",
-    category: "Banners"
-  },
-  {
-    src: "https://i.ibb.co/bg7LcZgr/banner.jpg",
-    alt: "",
-    category: "Banners"
-  },
-  {
-    src: "https://i.ibb.co/PgmxSzt/bannerrr.jpg",
-    alt: "",
-    category: "Banners"
-  },
-  {
-    src: "https://i.ibb.co/HcqV13Z/banner.jpg",
-    alt: "",
-    category: "Banners"
-  }
-]
-
-const categories = ['All', 'Thumbnails', 'Banners']
 
 const stats = [
   {
@@ -123,6 +28,54 @@ const stats = [
   }
 ]
 
+const partners = [
+  { name: 'Merkur', logo: '/partner/merkur.svg' },
+  { name: 'Testorize', logo: '/partner/testorize-logo.svg' },
+  { name: 'Venom', logo: '/partner/venom.svg' },
+  { name: 'File7', logo: '/partner/file7.svg' },
+  { name: 'Partner3', logo: '/partner/partner3.svg' },
+  { name: 'Partner2', logo: '/partner/parner2.svg' },
+]
+
+const skills = [
+  {
+    name: "Adobe Photoshop",
+    icon: "fa-wand-magic-sparkles",
+    description: "Professional photo manipulation and graphic design",
+    color: "from-blue-400 to-blue-600"
+  },
+  {
+    name: "Figma",
+    icon: "fa-pen-ruler",
+    description: "Modern UI/UX design and prototyping",
+    color: "from-purple-400 to-purple-600"
+  },
+  {
+    name: "Adobe Illustrator",
+    icon: "fa-bezier-curve",
+    description: "Vector graphics and brand identity design",
+    color: "from-orange-400 to-orange-600"
+  },
+  {
+    name: "Web Development",
+    icon: "fa-code",
+    description: "Frontend development with modern technologies",
+    color: "from-green-400 to-green-600"
+  },
+  {
+    name: "UI/UX Design",
+    icon: "fa-layer-group",
+    description: "User-centered design and experience",
+    color: "from-pink-400 to-pink-600"
+  },
+  {
+    name: "Video Editing",
+    icon: "fa-film",
+    description: "Professional video editing and motion graphics",
+    color: "from-red-400 to-red-600"
+  }
+]
+
 export default function ProjectsPage() {
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
@@ -130,20 +83,6 @@ export default function ProjectsPage() {
     damping: 30,
     restDelta: 0.001
   })
-
-  const [activeCategory, setActiveCategory] = useState('All')
-  const [selectedImage, setSelectedImage] = useState<string | null>(null)
-
-  const filteredImages = useMemo(() => {
-    return activeCategory === 'All' 
-      ? testImages 
-      : testImages.filter(image => image.category === activeCategory)
-  }, [activeCategory])
-
-  const scrollToProjects = () => {
-    const projectsSection = document.getElementById('projects')
-    projectsSection?.scrollIntoView({ behavior: 'smooth' })
-  }
 
   return (
     <main className="min-h-screen bg-black text-white relative">
@@ -286,120 +225,164 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <motion.section
-        id="projects"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true, margin: "-100px" }}
-        className="relative py-20"
-      >
+      {/* Partners Section */}
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
+        
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <span className="text-violet-400 font-medium tracking-wide uppercase">
+              Trusted By Industry Leaders
+            </span>
+            <h2 className="mt-4 text-3xl font-bold">
+              Partnering with Amazing Brands
+            </h2>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="text-center mb-16"
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center"
           >
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                delay: 0.2,
-                duration: 0.8,
-                ease: "easeOut"
-              }}
-              className="text-xl text-purple-400 font-medium tracking-wide uppercase mb-4"
-            >
-              Showcase
-            </motion.p>
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                delay: 0.3,
-                duration: 0.8,
-                ease: "easeOut"
-              }}
-              className="text-7xl font-bold mb-12 bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-300 to-white relative"
-            >
-              Latest Projects
-              <motion.span
-                initial={{ width: "0%" }}
-                whileInView={{ width: "100%" }}
-                transition={{ duration: 1, delay: 0.5 }}
-                className="absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500 to-transparent"
-              />
-            </motion.h1>
-          </motion.div>
-
-          {/* Categories Filter */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              delay: 0.4,
-              duration: 0.8,
-              ease: "easeOut"
-            }}
-            className="flex flex-wrap justify-center gap-4 mb-16"
-          >
-            {[
-              { name: 'All', icon: 'fa-border-all' },
-              { name: 'Thumbnails', icon: 'fa-image' },
-              { name: 'Banners', icon: 'fa-panorama' }
-            ].map((category) => (
-              <motion.button
-                key={category.name}
-                onClick={() => setActiveCategory(category.name)}
-                className={`group relative flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
-                  activeCategory === category.name
-                    ? 'text-white bg-gradient-to-r from-violet-600/20 via-violet-500/20 to-violet-600/20 border border-violet-500/50 shadow-[inset_0_0_20px_rgba(139,92,246,0.1)] animate-shimmer'
-                    : 'text-white/70 hover:text-white border border-transparent hover:border-violet-500/20 hover:bg-violet-500/10'
-                }`}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <i className={`fa-solid ${category.icon} ${
-                  activeCategory === category.name 
-                    ? 'text-violet-400' 
-                    : 'text-white/50 group-hover:text-violet-400'
-                } transition-colors`} />
-                <span>{category.name}</span>
-                {activeCategory === category.name && (
-                  <div className="absolute inset-0 -z-10 bg-gradient-to-r from-violet-600/10 via-violet-500/10 to-violet-600/10 rounded-xl opacity-50 blur-sm" />
-                )}
-              </motion.button>
-            ))}
-          </motion.div>
-
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredImages.map((image, index) => (
+            {partners.map((partner, index) => (
               <motion.div
-                key={image.src}
+                key={partner.name}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="group relative"
+                className="relative group"
               >
-                <div className="relative aspect-video rounded-xl overflow-hidden bg-[#111] border border-white/10">
+                <div className="absolute inset-0 bg-gradient-to-r from-violet-600/0 via-violet-600/3 to-violet-600/0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative aspect-[3/2] filter grayscale hover:grayscale-0 transition-all duration-300">
                   <Image
-                    src={image.src}
-                    alt={image.alt}
+                    src={partner.logo}
+                    alt={partner.name}
                     fill
-                    priority={index < 4}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover"
+                    className="object-contain"
                   />
-                  <div className="absolute inset-0 bg-violet-600/0 group-hover:bg-violet-600/10 transition-colors duration-300" />
                 </div>
               </motion.div>
             ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Stats & Impact Section */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-black" />
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="relative"
+            >
+              <div className="relative aspect-square rounded-2xl overflow-hidden">
+                <Image
+                  src="/wallpaper.jpg"
+                  alt="Creative Process"
+                  fill
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/20 to-transparent mix-blend-multiply" />
+              </div>
+              
+              {/* Floating Stats */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="absolute -right-8 -bottom-8 bg-black/90 backdrop-blur-xl border border-violet-500/20 rounded-xl p-6 shadow-2xl"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-violet-500/20 rounded-xl flex items-center justify-center">
+                    <i className="fa-solid fa-star text-2xl text-violet-400"></i>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold">6+ Years</div>
+                    <div className="text-white/60 text-sm">Professional Experience</div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
+            >
+              <div className="space-y-4">
+                <span className="text-violet-400 font-medium tracking-wide uppercase">
+                  Our Expertise
+                </span>
+                <h2 className="text-4xl md:text-5xl font-bold">
+                  Mastering Digital{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-violet-600">
+                    Creativity
+                  </span>
+                </h2>
+                <p className="text-lg text-white/60 max-w-xl">
+                  From concept to execution, we bring your vision to life with cutting-edge tools and technologies.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                {skills.slice(0, 4).map((skill, index) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="group relative p-4 rounded-xl bg-white/5 border border-white/10 hover:border-violet-500/30 transition-colors"
+                  >
+                    <div className="relative z-10">
+                      <div className={`w-10 h-10 rounded-lg bg-gradient-to-r ${skill.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
+                        <i className={`fa-solid ${skill.icon} text-lg text-white`}></i>
+                      </div>
+                      <h3 className="text-lg font-semibold mb-1 text-white group-hover:text-violet-400 transition-colors">
+                        {skill.name}
+                      </h3>
+                      <p className="text-sm text-white/60 group-hover:text-white/70 transition-colors">
+                        {skill.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href="/projects">
+                  <button className="group relative px-8 py-4 rounded-xl overflow-hidden bg-violet-600 text-white font-medium">
+                    <div className="absolute inset-0 w-full h-full transition-all duration-300 bg-gradient-to-r from-violet-600 via-violet-500 to-violet-600 bg-[length:200%_100%] group-hover:bg-[position:100%_0] animate-shimmer" />
+                    <div className="relative flex items-center gap-2">
+                      View Our Work
+                      <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                  </button>
+                </Link>
+                <Link href="/start-project">
+                  <button className="group relative px-8 py-4 rounded-xl overflow-hidden border border-violet-500/20 font-medium hover:bg-violet-500/10 transition-colors">
+                    <span className="relative text-white/80 group-hover:text-white transition-colors flex items-center gap-2">
+                      Start a Project
+                      <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </span>
+                  </button>
+                </Link>
+              </div>
+            </motion.div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Mentorship Section */}
       <motion.section
@@ -502,14 +485,6 @@ export default function ProjectsPage() {
           </div>
         </div>
       </motion.section>
-
-      {/* Image Modal */}
-      <ImageModal
-        src={selectedImage || ''}
-        alt=""
-        isOpen={!!selectedImage}
-        onClose={() => setSelectedImage(null)}
-      />
     </main>
   )
 } 

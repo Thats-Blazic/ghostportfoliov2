@@ -34,6 +34,8 @@ export default function ImageModal({ src, alt, isOpen, onClose }: ImageModalProp
               className="object-contain"
               sizes="90vw"
               priority
+              unoptimized={true}
+              loader={({ src }) => src}
             />
           </motion.div>
         </motion.div>
