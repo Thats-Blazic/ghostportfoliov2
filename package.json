@@ -17,6 +17,7 @@
     "@vercel/speed-insights": "^1.2.0",
     "@vimeo/player": "^2.25.1",
     "clsx": "^2.1.1",
+    "critters": "^0.0.23",
     "framer-motion": "^12.4.7",
     "mini-svg-data-uri": "^1.4.4",
     "motion": "^12.4.7",
