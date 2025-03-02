@@ -22,8 +22,8 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Ghost Force Studio | Premium Design Services',
-  description: 'Professional design services for your brand. We create thumbnails, banners, logos, and brand identities that stand out.',
+  title: 'Ghost Force Studio',
+  description: "LET'S MAKE YOU REMARKABLE",
   keywords: 'design, thumbnails, banners, gaming, music, branding, logo design',
   authors: [{ name: 'Ghost Force Studio' }],
   robots: 'index, follow',
